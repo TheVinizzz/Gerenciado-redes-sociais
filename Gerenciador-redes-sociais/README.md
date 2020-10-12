@@ -1,2 +1,0 @@
-# Gerenciador-redes-sociais
- Inicial
