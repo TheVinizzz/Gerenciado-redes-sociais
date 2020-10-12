@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, Redirect} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -14,7 +14,7 @@ import {APP_ROUTE, REGISTER_ROUTE} from "../../../Routes";
 
 import StartupSpaceLogo from "../../../assets/navbar/loadingScreen.png";
 import {Link} from "@material-ui/core";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../../actions/accountActions";
 import {useHistory} from "react-router";
 
@@ -53,6 +53,10 @@ export default function LoginPage() {
     const [password, setPassword] = useState();
     const [user, setUser] = useState({ err: false, text: "" });
     const [pass, setPass] = useState({ err: false, text: "" });
+
+    const uid = useSelector((state) => state.firebase?.auth?.uid);
+
+    if(uid) return <Redirect to="/" />
     return (
         <div className={classes.view}>
             <Grid container alignContent="center" justify="center" direction="column">

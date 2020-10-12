@@ -3,7 +3,7 @@ import React, { Fragment, lazy, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 
-// import AuthGuard from 'src/web-user/ui/components/AuthGuard';
+ import AuthGuard from 'src/web-user/ui/components/AuthGuard';
 // import GuestGuard from 'src/web-user/ui/components/GuestGuard';
 import MainLayout from "./ui/layouts/MainLayout";
 // import LoadingScreen from "./ui/components/LoadingScreen";
@@ -56,6 +56,18 @@ const routesConfig = [
                 layout: MainLayout,
                 path: LOGIN_ROUTE,
                 component: lazy(() => import('src/web-user/ui/pages/login'))
+        },
+        {
+                path: APP_ROUTE,
+                layout: MainLayout,
+                guard: AuthGuard,
+                routes: [
+                        {
+                           exact: true,
+                           path: "/app/welcome",
+                                component: lazy(() => import('src/web-user/ui/pages/welcome'))
+                        }
+        ]
         },
         // {
         //         path: APP_ROUTE,

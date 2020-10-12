@@ -92,8 +92,9 @@ export default function CustomizedTabs() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
+    const uid = useSelector((state) => state.firebase?.auth?.uid);
+
     const anchorRef = React.useRef(null);
-    const auth = useSelector((state) => state.firebase?.auth);
     const userProfile = useSelector((state) => state.firebase.profile);
 
     const handleChange = (event, newValue) => {
@@ -119,9 +120,9 @@ export default function CustomizedTabs() {
                     </a>
                     <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" className="md:ml-50">
                         <StyledTab label="Como Usar" href="/"/>
-                        <StyledTab label="Login" href="/entrar"/>
-                        <StyledTab label="Registrar" href="/cadastro"/>
-                        <StyledTab label="Sair" onClick={handleLogout}/>
+                        {!uid ? <StyledTab label="Login" href="/entrar"/> : null}
+                        {!uid ? <StyledTab label="Registrar" href="/cadastro"/> : null}
+                        {uid ? <StyledTab label="Sair" onClick={handleLogout}/> : null}
                     </StyledTabs>
                 </Container>
                 <Typography className={classes.padding} />
